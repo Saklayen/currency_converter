@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.saklayen.currencyconverter.ui.home.CurrencyConvertViewModel" />
+
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/info_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            style="@style/AppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                style="@style/Toolbar"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:contentDescription="@string/currency_converter"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:importantForAccessibility="yes"
+                android:gravity="center"
+                app:titleCentered="true"
+                app:layout_collapseMode="pin"
+                app:title="@string/currency_converter" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/activity_vertical_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/activity_vertical_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/activity_horizontal_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/activity_horizontal_margin" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/balance_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="@id/top_guideline"
+                android:text="@string/my_balances"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/wallet_recyclerview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/balance_title"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                android:layout_marginTop="@dimen/spacing_normal"
+                tools:listitem="@layout/currency_item"
+                tools:itemCount="4"
+                app:walletList="@{viewModel.walletList.data}"
+                app:currencyConvertViewModel="@{viewModel}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/currency_exchange_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/wallet_recyclerview"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/currency_exchange"
+                android:textAllCaps="true"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sell_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/currency_exchange_title"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline">
+                <ImageView
+                    android:id="@+id/sell_icon"
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_sell"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sell_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/sell_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:text="@string/sell"/>
+                <EditText
+                    android:id="@+id/sell_amount"
+                    android:layout_width="@dimen/width_120_dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:text="@={viewModel.fromAmount}"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    app:layout_constraintEnd_toStartOf="@+id/currency_input"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <com.saklayen.currencyconverter.widgets.StateTextInputLayout
+                    android:id="@+id/currency_input"
+                    android:layout_width="@dimen/width_120_dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_medium"
+                    style="@style/StateTextInputLayoutSpinner"
+                    bindState="@{viewModel.walletList}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        style="@style/AutoCompleteSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="@dimen/spacing_tiny_large"
+                        android:ellipsize="end"
+                        android:inputType="none"
+                        android:onItemClick="@{(p, v, pos, id) -> viewModel.onSelectCurrency(p.getItemAtPosition(pos),1)}"
+                        app:bindWallet="@{viewModel.fromWalletList.data}"/>
+                </com.saklayen.currencyconverter.widgets.StateTextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/receive_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/sell_layout"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                android:layout_marginTop="@dimen/spacing_medium">
+                <ImageView
+                    android:id="@+id/receive_icon"
+                    android:layout_width="@dimen/icon_size_40"
+                    android:layout_height="@dimen/icon_size_40"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_receive"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/receive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/receive_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:text="@string/receive"/>
+                <TextView
+                    android:id="@+id/receive_amount"
+                    android:layout_width="@dimen/width_120_dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:text="@{viewModel.toAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/currency_calculation"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <com.saklayen.currencyconverter.widgets.StateTextInputLayout
+                    android:id="@+id/currency_calculation"
+                    style="@style/StateTextInputLayoutSpinner"
+                    android:layout_width="@dimen/width_120_dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_medium"
+                    bindState="@{viewModel.toWalletList}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        style="@style/AutoCompleteSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="@dimen/spacing_tiny_large"
+                        android:ellipsize="end"
+                        android:inputType="none"
+                        android:onItemClick="@{(p, v, pos, id) -> viewModel.onSelectCurrency(p.getItemAtPosition(pos),2)}"
+                        app:bindWallet="@{viewModel.toWalletList.data}"/>
+                </com.saklayen.currencyconverter.widgets.StateTextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                style="@style/ButtonCircular"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="@dimen/spacing_small_big"
+                android:gravity="center"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/submit"
+                android:onClick="@{()->viewModel.submit()}"
+                app:fontPath="fonts/BalooDa2-Medium.ttf"
+                app:layout_constraintBottom_toBottomOf="@id/bottom_guideline"
+                app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/start_guideline"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+

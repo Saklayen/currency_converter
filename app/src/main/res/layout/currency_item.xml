@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.saklayen.currencyconverter.ui.home.CurrencyConvertViewModel" />
+        <variable
+            name="item"
+            type="com.saklayen.currencyconverter.database.model.Wallet" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center">
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            tools:text="@{item.balance+` `+item.currencyName}"/>
+
+    </LinearLayout>
+
+</layout>

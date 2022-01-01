@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="reply_left_margin">47dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+
+    <dimen name="width_120_dp">120dp</dimen>
+
+    <!-- Onboarding -->
+    <dimen name="onboarding_actions_height">56dp</dimen>
+    <dimen name="onboarding_margins">48dp</dimen>
+    <dimen name="onboarding_animation_padding">40dp</dimen>
+    <dimen name="padding_onboarding_button">12dp</dimen>
+
+    <!-- font sizes -->
+    <dimen name="font_big_big">32sp</dimen>
+    <dimen name="font_big">26sp</dimen>
+    <dimen name="font_larger">22sp</dimen>
+    <dimen name="font_larger_small">20sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_large_medium">17sp</dimen>
+    <dimen name="font_normal_large">16sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_small_large">14sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+
+    <!-- typical spacing between two views -->
+    <dimen name="spacing_big">96dp</dimen>
+    <dimen name="spacing_huge_large">72dp</dimen>
+    <dimen name="spacing_huge">48dp</dimen>
+    <dimen name="spacing_huge_big">70dp</dimen>
+    <dimen name="spacing_huge_small">40dp</dimen>
+    <dimen name="spacing_large_huge">30dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_normal_large">20dp</dimen>
+    <dimen name="spacing_normal_medium">18dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_medium">12dp</dimen>
+    <dimen name="spacing_small_large">12dp</dimen>
+    <dimen name="spacing_small_big">10dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_tiny_large">6dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_tiny_small">2dp</dimen>
+
+    <!-- typical sizes of views -->
+    <dimen name="button_height_tall">60dp</dimen>
+    <dimen name="button_height_normal">40dp</dimen>
+    <dimen name="button_height_short">32dp</dimen>
+    <dimen name="content_overlap_top">80dp</dimen>
+
+    <dimen name="dotDiameter">10dp</dimen>
+
+
+    <dimen name="my_course_image_height">60dp</dimen>
+    <dimen name="my_course_image_width">60dp</dimen>
+
+    <dimen name="course_image_list_width">100dp</dimen>
+    <dimen name="course_image_list_height">56dp</dimen>
+    <dimen name="comment_profile_image_size">40dp</dimen>
+    <dimen name="reply_profile_image_size">25dp</dimen>
+
+    <dimen name="collapsing_toolbar_layout_image_width">188dp</dimen>
+    <dimen name="player_height">240dp</dimen>
+
+    <dimen name="profile_image_size">80dp</dimen>
+    <dimen name="profile_image_size_edit">120dp</dimen>
+
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_size_40">40dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <dimen name="exo_button_inset_vertical_material">6dp</dimen>
+    <dimen name="exo_button_inset_horizontal_material">4dp</dimen>
+
+    <dimen name="exo_button_padding_vertical_material">4dp</dimen>
+    <dimen name="exo_button_padding_horizontal_material">8dp</dimen>
+
+
+    <dimen name="exam_prerequisite_course_height">90dp</dimen>
+    <dimen name="exam_prerequisite_course_width">158dp</dimen>
+
+    <dimen name="course_type_height">80dp</dimen>
+    <dimen name="course_type_width">156dp</dimen>
+
+    <dimen name="reference_image_size">50dp</dimen>
+    <dimen name="linguistic_image_size">40dp</dimen>
+
+
+    <dimen name="resume_profile_image_size">100dp</dimen>
+    <dimen name="resume_profile_image_size_radius">2dp</dimen>
+    <dimen name="button_corner_radius">28dp</dimen>
+    <dimen name="abc_text_size_button_material">16dp</dimen>
+
+    <dimen name="home_item_image_size">45dp</dimen>
+</resources>
