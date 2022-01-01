@@ -169,6 +169,7 @@ class CurrencyConvertViewModel @Inject constructor(
                 var msg =
                     "You have converted ${fromAmount.value} ${fromCurrency.value} to ${toAmount.value} ${toCurrency.value}. Commission fee  ${commissionFee.value} ${fromCurrency.value}"
                 _message.trySend(msg)
+                fromAmount.value = 0.00.toString()
             }
         }
     }
@@ -205,19 +206,18 @@ class CurrencyConvertViewModel @Inject constructor(
         if (fromAmount.value.isNotBlank() && fromAmount.value.toFloat() > 0 && (walletList.value.data?.get(
                 fromIndex
             )?.balance?.minus(
-                fromAmount.value.toFloat()
+                fromAmount.value.toFloat() + commissionFee.value
             ))!! > 0
         ) {
 
             walletList.value.data?.forEach {
-                if (fromCurrency.value == it.currencyName) fromIndex = it.rowid
                 if (toCurrency.value == it.currencyName) toIndex = it.rowid
             }
-            walletList.value.data?.get(fromIndex - 1)?.balance?.minus(fromAmount.value.toFloat() + commissionFee.value.toFloat())
+            walletList.value.data?.get(fromIndex)?.balance?.minus(fromAmount.value.toFloat() + commissionFee.value.toFloat())
                 ?.let {
-                    walletList.value.data?.get(fromIndex - 1)?.currencyName?.let { it1 ->
+                    walletList.value.data?.get(fromIndex)?.currencyName?.let { it1 ->
                         Wallet(
-                            rowid = fromIndex,
+                            rowid = 1,
                             balance = it,
                             currencyName = it1
                         )
