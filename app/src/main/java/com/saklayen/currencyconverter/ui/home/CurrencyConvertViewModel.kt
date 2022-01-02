@@ -38,7 +38,7 @@ class CurrencyConvertViewModel @Inject constructor(
     var currencyRateMock = MutableStateFlow(
         CurrencyRate(
             base = "EUR",
-            date = "01/01.2022",
+            date = "01/01/2022",
             rates = CurrencyRate.Rates(
                 gBP = 0.84,
                 jPY = 130.89,
