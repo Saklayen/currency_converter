@@ -20,7 +20,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.viewModel = viewModel
 
         lifecycleScope.launchWhenCreated {
-
             launch {
                 viewModel.message.collect {
                     showDialog {
@@ -32,9 +31,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                 }
             }
-
+            launch {
+                viewModel.errorMessage.collect {
+                    showDialog {
+                        setIcon(getDrawable(R.drawable.ic_baseline_error_outline_24))
+                        setTitle(getString(R.string.error))
+                        setMessage(it)
+                        positiveButton(getString(R.string.ok))
+                    }
+                }
+            }
         }
-
     }
-
 }

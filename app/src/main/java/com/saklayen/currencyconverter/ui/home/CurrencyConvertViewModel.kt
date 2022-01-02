@@ -49,6 +49,7 @@ class CurrencyConvertViewModel @Inject constructor(
     var fromAmount = MutableStateFlow("0.00")
     var toAmount = MutableStateFlow("0.00")
     var commissionFee = MutableStateFlow(0.00)
+    var commissionRate = MutableStateFlow(0.007)
     var rate = MutableStateFlow(1.3)
 
     var fromIndex = 0
@@ -74,6 +75,9 @@ class CurrencyConvertViewModel @Inject constructor(
 
     private val _message = Channel<String>(Channel.CONFLATED)
     val message = _message.receiveAsFlow()
+
+    private val _errorMessage = Channel<String>(Channel.CONFLATED)
+    val errorMessage = _errorMessage.receiveAsFlow()
 
     private val _submit = Channel<Unit>(Channel.CONFLATED)
     val submit = _submit.receiveAsFlow()
@@ -169,13 +173,14 @@ class CurrencyConvertViewModel @Inject constructor(
         }
         viewModelScope.launch {
             submit.collect {
-                if (numberOfTransactions.value >= 5 && fromAmount.value.toInt() < 200) {
-                    commissionFee.value = (fromAmount.value.toDouble() * 0.007)
+                if (numberOfTransactions.value >= 5 || fromAmount.value.toInt() < 200) {
+                    commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
                 }
                 var msg =
                     "You have converted ${fromAmount.value} ${fromCurrency.value} to ${toAmount.value} ${toCurrency.value}. Commission fee  ${commissionFee.value} ${fromCurrency.value}"
                 _message.trySend(msg)
-                fromAmount.value = 0.00.toString()
+                _message.trySend(msg)
+                fromAmount.value = (0.00).toString()
             }
         }
     }
@@ -202,7 +207,7 @@ class CurrencyConvertViewModel @Inject constructor(
                 "GBP" -> rate = currencyRateMock.value.rates?.gBP!!
                 "JPY" -> rate = currencyRateMock.value.rates?.jPY!!
             }
-            toAmount.value = String.format("%.2f", ((amount.toDouble() * rate)))
+            toAmount.value = String.format("%.2f", ((amount.toFloat() * rate)))
         } else {
             toAmount.value = String.format("%.2f", 0.00)
         }
@@ -210,12 +215,19 @@ class CurrencyConvertViewModel @Inject constructor(
 
     fun submit() {
 
-        if (fromAmount.value.isNotBlank() && fromAmount.value.toFloat() > 0 && (walletList.value.data?.get(
+        if (fromAmount.value.isBlank() || fromAmount.value.toFloat() == 0f){
+            _errorMessage.trySend("Invalid input amount")
+            return
+        }
+        else if((walletList.value.data?.get(
                 fromIndex
             )?.balance?.minus(
                 fromAmount.value.toFloat() + commissionFee.value
-            ))!! > 0
-        ) {
+            ))!! <= 0){
+            _errorMessage.trySend("Base wallet balance can not be zero after transaction")
+            return
+        }
+        else {
 
             walletList.value.data?.forEach {
                 if (toCurrency.value == it.currencyName) toIndex = it.rowid

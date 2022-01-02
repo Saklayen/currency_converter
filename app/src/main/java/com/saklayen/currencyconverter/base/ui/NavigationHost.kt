@@ -1,4 +1,4 @@
-package com.asainternational.ambsmobile.base.ui
+package com.saklayen.currencyconverter.base.ui
 
 import com.saklayen.currencyconverter.base.navigation.ActivityScreenSwitcher
 import com.google.android.material.appbar.MaterialToolbar
