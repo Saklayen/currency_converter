@@ -33,7 +33,8 @@ class CurrencyConvertViewModel @Inject constructor(
     private val walletRepositories: WalletRepositories
 ) :
     ViewModel() {
-
+    /** Using the currencyrateMock data because the api requires a access_key,
+    but I haven't provided the key*/
     var currencyRateMock = MutableStateFlow(
         CurrencyRate(
             base = "EUR",
@@ -45,12 +46,12 @@ class CurrencyConvertViewModel @Inject constructor(
             )
         )
     )
+    private val syncPeriod : Long= 5000
     var currencies = application.resources.getStringArray(R.array.array_currency).toList()
     var fromAmount = MutableStateFlow("0.00")
     var toAmount = MutableStateFlow("0.00")
     var commissionFee = MutableStateFlow(0.00)
     var commissionRate = MutableStateFlow(0.007)
-    var rate = MutableStateFlow(1.3)
 
     var fromIndex = 0
     var toIndex = 0
@@ -95,10 +96,19 @@ class CurrencyConvertViewModel @Inject constructor(
     var numberOfTransactions = MutableStateFlow(0)
 
     init {
+        viewModelScope.launch {
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    //fetching currency rates
+                    fetchCurrencyRate()
+                }
+            }, 0, syncPeriod)
+
+        }
 
         viewModelScope.launch {
             currencyRate.collect {
-                Timber.d("rate--> message:  " + it.message)
+                Timber.d("rate--> message:  %s", it.message)
 
             }
         }
@@ -113,7 +123,7 @@ class CurrencyConvertViewModel @Inject constructor(
                 if (it.isNotEmpty()) {
                     walletList.value = Result.success(it.toMutableList())
                     fromCurrency.value = walletList.value.data?.get(0)?.currencyName.toString()
-                    var toDataList = mutableListOf<Wallet>()
+                    val toDataList = mutableListOf<Wallet>()
                     walletList.value.data?.forEach { wallet ->
                         if (wallet.currencyName != fromCurrency.value) {
                             toDataList.add(wallet)
@@ -123,7 +133,7 @@ class CurrencyConvertViewModel @Inject constructor(
                     fromWalletList.value =
                         Result.success(mutableListOf(walletList.value.data?.get(0)!!))
                     toCurrency.value = toWalletList.value.data?.get(0)!!.currencyName
-                    Timber.d("wallets " + walletList.value.data?.get(1)?.rowid)
+                    Timber.d("wallets %s", walletList.value.data?.get(1)?.rowid)
                 }
             }
         }
@@ -153,22 +163,10 @@ class CurrencyConvertViewModel @Inject constructor(
             }
 
         }
-        viewModelScope.launch {
-            Timer().schedule(object : TimerTask() {
-                override fun run() {
-                    fetchCurrencyRate()
-                }
-            }, 0, 5000)
 
-        }
         viewModelScope.launch {
             fromAmount.collect {
                 convertCurrency(it)
-            }
-        }
-        viewModelScope.launch {
-            currencyRate.collect {
-                Timber.d(it.data?.date + " date")
             }
         }
         viewModelScope.launch {
@@ -176,7 +174,7 @@ class CurrencyConvertViewModel @Inject constructor(
                 if (numberOfTransactions.value >= 5 || fromAmount.value.toInt() < 200) {
                     commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
                 }
-                var msg =
+                val msg =
                     "You have converted ${fromAmount.value} ${fromCurrency.value} to ${toAmount.value} ${toCurrency.value}. Commission fee  ${commissionFee.value} ${fromCurrency.value}"
                 _message.trySend(msg)
                 _message.trySend(msg)

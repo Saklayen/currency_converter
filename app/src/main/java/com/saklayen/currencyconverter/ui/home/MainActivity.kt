@@ -25,9 +25,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     showDialog {
                         setTitle(getString(R.string.currency_converted))
                         setMessage(it)
-                        positiveButton(getString(R.string.ok)) {
-                            //toastShort("ok")
-                        }
+                        positiveButton(getString(R.string.ok))
                     }
                 }
             }
