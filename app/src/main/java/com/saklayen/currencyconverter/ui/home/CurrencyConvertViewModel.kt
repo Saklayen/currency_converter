@@ -18,10 +18,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -94,7 +94,7 @@ class CurrencyConvertViewModel @Inject constructor(
 
         viewModelScope.launch {
             currencyRate.collect {
-                Timber.d("rate-->  " + it.data?.rates?.uSD)
+                Timber.d("rate--> message:  " + it.message)
 
             }
         }
@@ -116,7 +116,8 @@ class CurrencyConvertViewModel @Inject constructor(
                         }
                     }
                     toWalletList.value = Result.success(toDataList)
-                    fromWalletList.value = Result.success(mutableListOf(walletList.value.data?.get(0)!!))
+                    fromWalletList.value =
+                        Result.success(mutableListOf(walletList.value.data?.get(0)!!))
                     toCurrency.value = toWalletList.value.data?.get(0)!!.currencyName
                     Timber.d("wallets " + walletList.value.data?.get(1)?.rowid)
                 }
@@ -127,19 +128,19 @@ class CurrencyConvertViewModel @Inject constructor(
                 Timber.d("wallets count $it")
                 if (it == 0) {
                     walletRepositories.insertWallets(
-                        com.saklayen.currencyconverter.database.model.Wallet(
+                        Wallet(
                             currencyName = "EUR",
                             balance = 1000.00F
                         )
                     )
                     walletRepositories.insertWallets(
-                        com.saklayen.currencyconverter.database.model.Wallet(
+                        Wallet(
                             currencyName = "USD",
                             balance = 0.00F
                         )
                     )
                     walletRepositories.insertWallets(
-                        com.saklayen.currencyconverter.database.model.Wallet(
+                        Wallet(
                             currencyName = "GBP",
                             balance = 0.00F
                         )
@@ -149,7 +150,12 @@ class CurrencyConvertViewModel @Inject constructor(
 
         }
         viewModelScope.launch {
-            fetchCurrencyRate()
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    fetchCurrencyRate()
+                }
+            }, 0, 5000)
+
         }
         viewModelScope.launch {
             fromAmount.collect {
@@ -175,6 +181,7 @@ class CurrencyConvertViewModel @Inject constructor(
     }
 
     fun fetchCurrencyRate() {
+        Timber.d("API emitting call--->")
         fetchCurrencyRate.tryEmit(Unit)
     }
 
@@ -187,16 +194,16 @@ class CurrencyConvertViewModel @Inject constructor(
         }
     }
 
-    fun convertCurrency(amount: String){
+    fun convertCurrency(amount: String) {
         if (amount.isNotBlank()) {
             var rate = 0.00
-            when(toCurrency.value){
+            when (toCurrency.value) {
                 "USD" -> rate = currencyRateMock.value.rates?.uSD!!
                 "GBP" -> rate = currencyRateMock.value.rates?.gBP!!
                 "JPY" -> rate = currencyRateMock.value.rates?.jPY!!
             }
             toAmount.value = String.format("%.2f", ((amount.toDouble() * rate)))
-        }else{
+        } else {
             toAmount.value = String.format("%.2f", 0.00)
         }
     }
@@ -231,22 +238,23 @@ class CurrencyConvertViewModel @Inject constructor(
 
                 }
 
-            walletList.value.data?.get(toIndex - 1)?.balance?.plus(toAmount.value.toFloat() - commissionFee.value.toFloat())?.let {
-                walletList.value.data?.get(toIndex - 1)?.currencyName?.let { it1 ->
-                    Wallet(
-                        rowid = toIndex,
-                        balance = it,
-                        currencyName = it1
-                    )
-                }
-            }?.let {
-                viewModelScope.launch {
-                    walletRepositories.updateWallets(
-                        it
-                    )
-                }
+            walletList.value.data?.get(toIndex - 1)?.balance?.plus(toAmount.value.toFloat() - commissionFee.value.toFloat())
+                ?.let {
+                    walletList.value.data?.get(toIndex - 1)?.currencyName?.let { it1 ->
+                        Wallet(
+                            rowid = toIndex,
+                            balance = it,
+                            currencyName = it1
+                        )
+                    }
+                }?.let {
+                    viewModelScope.launch {
+                        walletRepositories.updateWallets(
+                            it
+                        )
+                    }
 
-            }
+                }
 
             viewModelScope.launch {
                 walletRepositories.insertTransaction(

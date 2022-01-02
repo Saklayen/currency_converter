@@ -2,8 +2,8 @@ package com.saklayen.currencyconverter.di
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
-import com.asainternational.ambsmobile.prefs.DataStorePreferenceStorage
-import com.asainternational.ambsmobile.prefs.PreferenceStorage
+import com.saklayen.currencyconverter.preference.DataStorePreferenceStorage
+import com.saklayen.currencyconverter.preference.PreferenceStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -4,8 +4,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import com.asainternational.ambsmobile.domain.internal.AppHandler
-import com.asainternational.ambsmobile.domain.internal.AppMainHandler
+import com.saklayen.currencyconverter.base.navigation.ActivityScreenSwitcher
+import com.saklayen.currencyconverter.domain.internal.AppHandler
+import com.saklayen.currencyconverter.domain.internal.AppMainHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +46,7 @@ class AppModule {
     @MainThreadHandler
     fun provideMainThreadHandler(): AppHandler = AppMainHandler()
 
-    /*@Singleton
+    @Singleton
     @Provides
-    fun provideActivityScreenSwitcher() = ActivityScreenSwitcher()*/
+    fun provideActivityScreenSwitcher() = ActivityScreenSwitcher()
 }

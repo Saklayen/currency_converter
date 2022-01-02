@@ -9,10 +9,5 @@ class CrashReportingTree : Timber.Tree() {
         if (mPriority == Log.VERBOSE || mPriority == Log.DEBUG) {
             return
         }
-        TODO("Gazi add Crashlytics")
-//        Crashlytics.log(mPriority, mTag, mMessage)
-//        if (mThrowable != null) {
-//            Crashlytics.logException(mThrowable)
-//        }
     }
 }

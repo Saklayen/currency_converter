@@ -1,7 +1,7 @@
 package com.saklayen.currencyconverter.api
 
-import com.asainternational.ambsmobile.model.token.RefreshToken
-import com.asainternational.ambsmobile.model.token.RefreshTokenResponse
+import com.saklayen.currencyconverter.model.token.RefreshToken
+import com.saklayen.currencyconverter.model.token.RefreshTokenResponse
 import com.saklayen.currencyconverter.model.CurrencyRate
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.asainternational.ambsmobile.model.token
+package com.saklayen.currencyconverter.model.token
 
 data class RefreshTokenResponse(
     val refreshToken: String,

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.withContext
 import com.saklayen.currencyconverter.domain.Result
+import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
 abstract class NetworkResource<RequestType>(
@@ -24,6 +25,7 @@ abstract class NetworkResource<RequestType>(
             when (it) {
                 is ApiSuccessResponse -> {
                     val data = processResponse(it)
+                    Timber.d("API "+data.toString()+ it.body.toString())
                     withContext(dispatcher) {
                         saveCallResult(data)
                         emit(Result.success(data))

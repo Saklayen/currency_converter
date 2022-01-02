@@ -98,20 +98,3 @@ fun RecyclerView.bindAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHold
 fun setSwipeRefreshColors(swipeRefreshLayout: SwipeRefreshLayout, colorResIds: IntArray) {
     swipeRefreshLayout.setColorSchemeColors(*colorResIds)
 }
-
-
-/*@BindingAdapter("itemSpacing")
-fun RecyclerView.itemSpacing(dimen: Float) {
-    val space = dimen.toInt()
-    if (space > 0) {
-        addItemDecoration(SpaceDecoration(space, space, space, space))
-    }
-}*/
-
-/*@BindingAdapter("loadImage")
-fun loadImage(view: ImageView, bitmap: Bitmap?) {
-    Glide.with(view.context)
-        .load(bitmap)
-        .placeholder(R.drawable.ic_baseline_place_holder_200)
-        .into(view)
-}*/

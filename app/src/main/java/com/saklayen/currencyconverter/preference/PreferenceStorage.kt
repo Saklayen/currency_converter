@@ -1,13 +1,13 @@
-package com.asainternational.ambsmobile.prefs
+package com.saklayen.currencyconverter.preference
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.asainternational.ambsmobile.prefs.DataStorePreferenceStorage.PreferencesKeys.PREF_ACCESS_TOKEN
-import com.asainternational.ambsmobile.prefs.DataStorePreferenceStorage.PreferencesKeys.PREF_OFFLINE_PASSWORD
-import com.asainternational.ambsmobile.prefs.DataStorePreferenceStorage.PreferencesKeys.PREF_REFRESH_TOKEN
-import com.asainternational.ambsmobile.prefs.DataStorePreferenceStorage.PreferencesKeys.PREF_USER_ID
+import com.saklayen.currencyconverter.preference.DataStorePreferenceStorage.PreferencesKeys.PREF_ACCESS_TOKEN
+import com.saklayen.currencyconverter.preference.DataStorePreferenceStorage.PreferencesKeys.PREF_OFFLINE_PASSWORD
+import com.saklayen.currencyconverter.preference.DataStorePreferenceStorage.PreferencesKeys.PREF_REFRESH_TOKEN
+import com.saklayen.currencyconverter.preference.DataStorePreferenceStorage.PreferencesKeys.PREF_USER_ID
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking

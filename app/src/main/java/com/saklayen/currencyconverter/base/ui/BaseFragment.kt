@@ -9,7 +9,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.asainternational.ambsmobile.base.ui.NavigationHost
 import com.google.android.material.appbar.MaterialToolbar
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 

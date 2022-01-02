@@ -2,7 +2,7 @@ package com.saklayen.currencyconverter.di
 
 import android.content.Context
 import androidx.databinding.ktx.BuildConfig
-import com.asainternational.ambsmobile.prefs.PreferenceStorage
+import com.saklayen.currencyconverter.preference.PreferenceStorage
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.saklayen.currencyconverter.api.ApiService
 import com.saklayen.currencyconverter.api.adapter.FlowCallAdapterFactory

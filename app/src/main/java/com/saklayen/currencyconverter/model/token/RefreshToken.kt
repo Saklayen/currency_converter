@@ -1,3 +1,3 @@
-package com.asainternational.ambsmobile.model.token
+package com.saklayen.currencyconverter.model.token
 
 data class RefreshToken(val token: String, val refreshToken: String)

@@ -56,15 +56,3 @@ fun RecyclerView.bindWalletListAdapter(viewModel: CurrencyConvertViewModel, data
     clearDecorations()
     //if (value.isNotEmpty()) addDividerItemDecorator(RecyclerView.VERTICAL)
 }
-
-@ExperimentalCoroutinesApi
-@BindingAdapter(value = ["viewModel", "walletDataList"], requireAll = true)
-fun RecyclerView.bindGroupMemberListAdapter(viewModel: CurrencyConvertViewModel, data: List<Wallet>?) {
-    if (adapter == null) {
-        adapter = WalletListAdapter(viewModel)
-    }
-    val value = data ?: emptyList()
-    val memberListAdapter = adapter as? WalletListAdapter
-    memberListAdapter?.submitList(value)
-    clearDecorations()
-}

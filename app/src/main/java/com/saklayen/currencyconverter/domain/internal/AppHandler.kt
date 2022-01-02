@@ -1,4 +1,4 @@
-package com.asainternational.ambsmobile.domain.internal
+package com.saklayen.currencyconverter.domain.internal
 
 import android.os.Handler
 import android.os.Looper

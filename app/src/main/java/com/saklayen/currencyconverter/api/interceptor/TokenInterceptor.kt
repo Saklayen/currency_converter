@@ -3,8 +3,8 @@ package com.saklayen.currencyconverter.api.interceptor
 import android.content.Context
 import com.saklayen.currencyconverter.api.ApiService
 import com.saklayen.currencyconverter.di.ApiModule.Companion.API_URL
-import com.asainternational.ambsmobile.model.token.RefreshToken
-import com.asainternational.ambsmobile.prefs.PreferenceStorage
+import com.saklayen.currencyconverter.model.token.RefreshToken
+import com.saklayen.currencyconverter.preference.PreferenceStorage
 import com.saklayen.currencyconverter.preference.RefreshTokenUseCase
 import com.saklayen.currencyconverter.utils.BEARER_TOKEN
 import com.saklayen.currencyconverter.preference.TokenUseCase

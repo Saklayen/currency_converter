@@ -6,11 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.saklayen.currencyconverter.base.navigation.ActivityScreenSwitcher
-import com.asainternational.ambsmobile.base.ui.NavigationHost
 import com.google.android.material.appbar.MaterialToolbar
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import javax.inject.Inject
 
 abstract class BaseActivity<T : ViewDataBinding> constructor(@LayoutRes private val mContentLayoutId: Int) :
     AppCompatActivity(),
