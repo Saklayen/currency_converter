@@ -171,12 +171,8 @@ class CurrencyConvertViewModel @Inject constructor(
         }
         viewModelScope.launch {
             submit.collect {
-                if (numberOfTransactions.value >= 5 || fromAmount.value.toInt() < 200) {
-                    commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
-                }
                 val msg =
                     "You have converted ${fromAmount.value} ${fromCurrency.value} to ${toAmount.value} ${toCurrency.value}. Commission fee  ${commissionFee.value} ${fromCurrency.value}"
-                _message.trySend(msg)
                 _message.trySend(msg)
                 fromAmount.value = (0.00).toString()
             }
@@ -226,6 +222,10 @@ class CurrencyConvertViewModel @Inject constructor(
             return
         }
         else {
+
+            if (numberOfTransactions.value > 5 || fromAmount.value.toInt() > 200) {
+                commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
+            }
 
             walletList.value.data?.forEach {
                 if (toCurrency.value == it.currencyName) toIndex = it.rowid
