@@ -219,16 +219,15 @@ class CurrencyConvertViewModel @Inject constructor(
             )?.balance?.minus(
                 fromAmount.value.toFloat() + commissionFee.value
             ))!! <= 0){
-            _errorMessage.trySend("Base wallet balance can not be zero after transaction")
+            _errorMessage.trySend("Insufficient Balance")
             return
         }
         else {
 
-            if (fromAmount.value.toFloat() > 200){
-                if (numberOfTransactions.value > 5 ){
-                    commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
-                }
+            if (numberOfTransactions.value > 5 ){
+                commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
             }
+
             walletList.value.data?.forEach {
                 if (toCurrency.value == it.currencyName) toIndex = it.rowid
             }
