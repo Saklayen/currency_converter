@@ -237,10 +237,6 @@ class CurrencyConvertViewModel @Inject constructor(
             if (numberOfTransactions.value >= 5 ){
                 commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
             }
-
-            /*walletList.value.data?.forEach {
-                if (toCurrency.value == it.currencyName) toIndex = it.rowid
-            }*/
             walletList.value.data?.get(fromIndex)?.balance?.minus(fromAmount.value.toFloat() + commissionFee.value.toFloat())
                 ?.let {
                     walletList.value.data?.get(fromIndex)?.currencyName?.let { it1 ->
