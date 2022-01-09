@@ -234,7 +234,7 @@ class CurrencyConvertViewModel @Inject constructor(
         }
         else {
 
-            if (numberOfTransactions.value > 5 ){
+            if (numberOfTransactions.value >= 5 ){
                 commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
             }
 
