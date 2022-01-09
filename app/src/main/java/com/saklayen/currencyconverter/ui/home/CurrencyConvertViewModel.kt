@@ -129,7 +129,11 @@ class CurrencyConvertViewModel @Inject constructor(
                             toDataList.add(wallet)
                         }
                     }
-                    toWalletList.value = Result.success(toDataList)
+                    toWalletList.value = Result.success(toDataList).also { data->
+                        data.data?.get(0).let { wallet ->
+                            toIndex = wallet!!.rowid
+                        }
+                    }
                     fromWalletList.value =
                         Result.success(mutableListOf(walletList.value.data?.get(0)!!))
                     toCurrency.value = toWalletList.value.data?.get(0)!!.currencyName
@@ -186,12 +190,18 @@ class CurrencyConvertViewModel @Inject constructor(
     }
 
     fun onSelectCurrency(item: Any, type: Int) {
-        if (type == 1) {
-            fromCurrency.value = item.toString()
-        } else {
-            toCurrency.value = item.toString()
-            convertCurrency(fromAmount.value)
+
+        (item as Wallet).apply {
+            var currencyName = this.currencyName
+            if (type == 1) {
+                fromCurrency.value = currencyName
+            } else {
+                toCurrency.value = currencyName
+                toIndex = this.rowid
+                convertCurrency(fromAmount.value)
+            }
         }
+
     }
 
     fun convertCurrency(amount: String) {
@@ -228,9 +238,9 @@ class CurrencyConvertViewModel @Inject constructor(
                 commissionFee.value = (fromAmount.value.toDouble() * commissionRate.value)
             }
 
-            walletList.value.data?.forEach {
+            /*walletList.value.data?.forEach {
                 if (toCurrency.value == it.currencyName) toIndex = it.rowid
-            }
+            }*/
             walletList.value.data?.get(fromIndex)?.balance?.minus(fromAmount.value.toFloat() + commissionFee.value.toFloat())
                 ?.let {
                     walletList.value.data?.get(fromIndex)?.currencyName?.let { it1 ->

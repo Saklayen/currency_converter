@@ -59,7 +59,7 @@ class DropdownItemArrayAdapter<T>(
         }
     }
 }
-
+/*
 @BindingAdapter("bindWallet")
 fun AutoCompleteTextView.bindWallet(data: List<Wallet>?) {
     var dataList = ArrayList<String>()
@@ -82,9 +82,9 @@ fun AutoCompleteTextView.bindWallet(data: List<Wallet>?) {
         val dropdownItemArrayAdapter = adapter as? DropdownItemArrayAdapter<String>
         dropdownItemArrayAdapter?.cleanAndAdd(objects)
     }
-}
+}*/
 
-/*@BindingAdapter("bindWallet")
+@BindingAdapter("bindWallet")
 fun AutoCompleteTextView.bindWallet(data: List<Wallet>?) {
     var dataList = ArrayList<String>()
     data?.forEach {
@@ -107,7 +107,6 @@ fun AutoCompleteTextView.bindWallet(data: List<Wallet>?) {
         dropdownItemArrayAdapter?.cleanAndAdd(objects)
    }
 }
-*/
 
 
 
